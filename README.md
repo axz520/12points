@@ -28,12 +28,14 @@ class Game24 {
 	}
 	
 	void initGame() {
+		// create 4 random numbers
 		while(true) {
 			for(int i = 0; i < 4; i++) {
 				int data = (int)(10*Math.random());
 				this.num[i] = new ClassOf24(data, ""+data);
 			}
 			
+			// check if these numbers can make 24
 			hasAns(this.num);
 			
 			if(this.hasAns)
@@ -42,6 +44,7 @@ class Game24 {
 	}
 	
 	private void hasAns(ClassOf24[] num) {
+		// if having answer, return
 		if(this.hasAns) return;
 		
 		if(num.length == 1 && num[0].number == 24) {
@@ -50,6 +53,7 @@ class Game24 {
 			return;
 		}
 		
+		// search answer
 		for(int i = 0; i < num.length && !this.hasAns; i++) {
 			for(int j = i + 1; j < num.length && !this.hasAns; j++) {
 				ClassOf24[] temp = new ClassOf24[num.length - 1];
@@ -99,10 +103,12 @@ class Game24 {
 			
 	}
 	
+	// check ths answer given
 	boolean checkAns(String s) {
 		return true;
 	}
 	
+	// return one feasible answer
 	public String toString() {
 		String s = new String();
 		for(int i = 0; i < num.length; i++) {
@@ -112,6 +118,7 @@ class Game24 {
 	}
 }
 
+// every element's class
 class ClassOf24{
 	int number;
 	String WayToMakeNum;
