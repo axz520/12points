@@ -8,13 +8,14 @@ public class Managment {
 		myGame.initGame();
 		System.out.println(myGame);
 		String s = scan.next();
-		System.out.println(myGame.oneAns);
+		
 		if(myGame.checkAns(s)) {
-			//win
+			System.out.println("win");
 		}
 		else {
-			//lose
+			System.out.println("lose");
 		}
+		System.out.println("one ans is:"+myGame.oneAns);
 	}
 }
 
@@ -100,15 +101,56 @@ class Game24 {
 	}
 	
 	boolean checkAns(String s) {
+		Stack <Character> stackNum = new Stack<>();
+		
+		
+		// 检测数字是否全用
+		if(!checkNumberAllUsed(s)) {
+			return false;
+		}
 		return true;
 	}
 	
 	public String toString() {
 		String s = new String();
+		
 		for(int i = 0; i < num.length; i++) {
 			s = s + num[i].WayToMakeNum + ' ';
 		}
 		return s;
+	}
+	
+	boolean checkNumberAllUsed(String s) {
+		int number = 0;
+		for(int i = 0; i < s.length(); i++) {
+			char temp = s.charAt(i);
+			if(temp >= '0' && temp <= '9') {
+				if(i + 1 < s.length() && s.charAt(i + 1) >= '0' && s.charAt(i + 1) <= '9') {
+					return false;
+				}
+				
+				if(i - 1 >= 0 && s.charAt(i - 1) >= '0' && s.charAt(i - 1) <= '9') {
+					return false;
+				}
+				
+				boolean notInNums = true;
+
+				for(var k : this.num) {
+					if(k.number == Integer.parseInt(""+temp)) {
+						++number;
+						notInNums = false;
+						break;
+					}
+				}
+				if(notInNums)
+					return false;
+			}
+			else {
+				if(temp != '+' && temp != '-' && temp != '/' && temp != '*' && temp != '(' && temp != ')')
+					return false;
+			}
+		}
+		return number == 4;
 	}
 }
 
