@@ -5,6 +5,7 @@ public class Managment {
 	{
 		Scanner scan = new Scanner(System.in);
 		Game24 myGame = new Game24();
+                // 初始化数据
 		myGame.initGame();
 		System.out.println(myGame);
 		String s = scan.next();
@@ -19,10 +20,13 @@ public class Managment {
 	}
 }
 
+// 四个数据，可行解构成的类
+// void initGame():初始化数据，得到一个可行解
+// boolean checkAns(String):检查用户的答案
 class Game24 {
 	ClassOf24[] num = new ClassOf24[4];
 	String oneAns;
-	boolean hasAns;
+	private boolean hasAns;
 	
 	Game24() {
 		this.hasAns = false;
@@ -113,7 +117,7 @@ class Game24 {
 		SolveExpression solve = new SolveExpression(s);
 		solve.calStack();
 		
-		return solve.getIf24();
+		return solve.getIfOk();
 	}
 	
 	public String toString() {
@@ -125,7 +129,7 @@ class Game24 {
 		return s;
 	}
 	
-	boolean checkNumberAllUsed(String s) {
+	private boolean checkNumberAllUsed(String s) {
 		int number = 0;
 		for(int i = 0; i < s.length(); i++) {
 			char temp = s.charAt(i);
@@ -159,9 +163,11 @@ class Game24 {
 	}
 }
 
+// 数据类，包括该数据的值和字符串组成
 class ClassOf24{
 	double number;
 	String WayToMakeNum;
+        // 字符串表示得到该值的中缀表达式
 	
 	ClassOf24(double number, String s){
 		this.number = number;
@@ -169,6 +175,10 @@ class ClassOf24{
 	}
 }
 
+// 计算中缀表达式的类，包括数字和字符stack，以及计算的表达式，ok判断字符串合法情况
+// int getPriority(char)得到运算符优先级
+// void calStack():计算中缀表达式
+// boolean getIfNum():是否为24
 class SolveExpression{
 	private Stack <Double> number;
 	private Stack <Character> character;
@@ -251,7 +261,7 @@ class SolveExpression{
 		this.number.push(d1);
 	}
 	
-	boolean getIf24() {
+	boolean getIfOk() {
 		return this.number.pop() == 24 && this.number.empty() && this.character.empty() && this.ok;
 	}
 }
